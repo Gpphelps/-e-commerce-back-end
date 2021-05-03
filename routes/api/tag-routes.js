@@ -47,10 +47,10 @@ router.post('/', (req, res) => {
 
 // Updates a tag's name by its `id` value
 router.put('/:id', (req, res) => {
-  Tag.update({
+  Tag.update(req.body, {
     where: {
       id: req.params.id
-    },
+    }
   }).then(tagData => {
     if (!tagData) {
       res.status(404).json({message: 'No tag could be found with the given id.'})
