@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
     price: req.body.price,
     stock: req.body.stock,
     category_id: req.body.category_id,
-    tagIds: req.body.tag_id
+    tagIds: req.body.tagIds
   })
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -99,6 +99,7 @@ router.put('/:id', (req, res) => {
     // get list of current tag_ids
     const productTagIds = productTags.map(({ tag_id }) => tag_id);
     // create filtered list of new tag_ids
+    console.log(req.body.tagIds);
     const newProductTags = req.body.tagIds
       .filter((tag_id) => !productTagIds.includes(tag_id))
       .map((tag_id) => {
@@ -120,7 +121,7 @@ router.put('/:id', (req, res) => {
     })
     .then((updatedProductTags) => res.status(200).json(updatedProductTags))
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
       res.status(400).json(err);
     });
 });
